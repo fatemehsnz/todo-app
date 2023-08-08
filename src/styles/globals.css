@@ -69,6 +69,8 @@ body {
   margin-top: 20px;
   margin-bottom: 10px;
   background: #e6ecf1;
+  font-size: 19px;
+
 }
 .update:focus {
   outline: none;

@@ -37,8 +37,18 @@ function Todo() {
     }
   };
   const deleteHandler = (id) => {
-    const newList = todoList.filter((item) => item.id !== id);
-    setTodolist(newList);
+    // const newList = todoList.filter((item) => item.id !== id);
+    // setTodolist(newList);
+    console.log(typeof(id));
+    axios
+      .delete(`/api/delete_todo/`,{data :{id}})
+      .then((res) => {
+        console.log(res);
+        setRefresh(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const editHandler = (id, newText, text) => {
     // setTodolist(

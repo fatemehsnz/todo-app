@@ -2,24 +2,15 @@ import { connectMongoDB } from "@/libs/MongoConnect";
 import Todo from "@/models/TodoModel";
 
 export default async function handler(req, res) {
-  if (req.method !== "PUT") {
-    res.status(405).send({ msg: "only put request are alloweddddd" });
+  if (req.method !== "DELETE") {
+    res.status(405).send({ msg: "only delete request are alloweddddd" });
     return;
   }
 
-  const { id, todo } = req.body;
   try {
+    const { id } = req.body;
     await connectMongoDB();
-    Todo.updateOne(
-      {
-        _id: id,
-      },
-      {
-        $set: {
-          todo
-        },
-      }
-    ).then((data) => {
+    Todo.deleteOne({ _id: id }).then((data) => {
       res.status(200).send(data);
     });
   } catch (err) {
