@@ -49,10 +49,9 @@ function Todo() {
     //     return item;
     //   })
     // );
-    console.log("hiiiiiiiii");
-    axios.put(`/api/update_todo/${id}`, { todo: text })
+    axios.put(`/api/update_todo/`, {id , todo : text })
     .then(res => {
-    console.log("hhhhhh",res);
+    console.log(res);
       setUpdateUI(true);
     })
     .catch(err=>{

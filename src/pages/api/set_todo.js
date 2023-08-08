@@ -2,7 +2,6 @@ import { connectMongoDB } from "@/libs/MongoConnect";
 import Todo from "@/models/TodoModel";
 
 export default async function handler(req, res) {
-  console.log(req);
   // res.status(200).json({ name: 'John Doe' })
   if (req.method !== "POST") {
     res.status(405).send({ msg: "only post request are allowed" });
