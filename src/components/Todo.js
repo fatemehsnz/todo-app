@@ -6,7 +6,7 @@ import axios from "axios";
 function Todo() {
   const [todoList, setTodolist] = useState([]);
   const [enteredText, setEnteredText] = useState("");
-  const [updateUI, setUpdateUI] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const addTodoHandler = () => {
     if (enteredText === "") return;
@@ -20,7 +20,7 @@ function Todo() {
       .post(`/api/set_todo`, { todo: enteredText })
       .then((res) => {
         setEnteredText("");
-        setUpdateUI(true);
+        setRefresh(true);
       })
       .catch((err) => console.log(err));
   };
@@ -29,7 +29,7 @@ function Todo() {
     axios.get(`/api/get_todo`).then((res) => {
       setTodolist(res.data);
     });
-  }, [updateUI]);
+  }, [refresh]);
 
   const addInputTodoHandler = (e) => {
     if (e.key === "Enter") {
@@ -40,23 +40,25 @@ function Todo() {
     const newList = todoList.filter((item) => item.id !== id);
     setTodolist(newList);
   };
-  const editHandler = (id, text) => {
+  const editHandler = (id, newText, text) => {
     // setTodolist(
     //   todoList.map((item) => {
     //     if (item.id === id) {
-    //       item.text = text;
+    //       item.text = newText;
     //     }
     //     return item;
     //   })
     // );
-    axios.put(`/api/update_todo/`, {id , todo : text })
-    .then(res => {
-    console.log(res);
-      setUpdateUI(true);
-    })
-    .catch(err=>{
-      console.log(err);
-    })
+    if (newText === text) return;
+    axios
+      .put(`/api/update_todo/`, { id, todo: newText })
+      .then((res) => {
+        console.log(res);
+        setRefresh(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div>

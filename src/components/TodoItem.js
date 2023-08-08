@@ -16,7 +16,7 @@ function TodoItem(props) {
     setUpdateText(props.item.todo);
   };
   const updateHandle = () => {
-    props.editItem(props.item._id, updateText);
+    props.editItem(props.item._id, updateText, props.item.todo);
     setEditing(false);
   };
   const updateTodoHandler = (e) => {
